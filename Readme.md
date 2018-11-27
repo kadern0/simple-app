@@ -128,6 +128,8 @@ ParameterKey=ImageUrl,ParameterValue=$IMAGE_URI \
 --capabilities CAPABILITY_IAM
 ```
 
+In case you want to use a different branch (by default it's master)
+you have to add a 'GitHubBranch' parameter to the previous command.
 This should create the stack and deploy the application into Fargate
 behind an Elastic Load Balancer. It takes around 7 minutes to
 finish. After this time, you can run:
