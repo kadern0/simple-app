@@ -1,4 +1,4 @@
-
+CannotStartContainerError: API error (400): OCI runtime create failed: container_linux.go:348: starting container process caused "exec: \"/run.sh\": permission denied": unknown 
 dd
 aaaa
 $ aws ecr get-login — no-include-email
