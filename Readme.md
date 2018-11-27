@@ -169,7 +169,7 @@ the application (running as non-root) and use any orchestrator to
 deploy a service so it achieves reliability and scalability at the
 same time. I also wanted to use some technologies that I hadn't used
 before so I could learn during the process. After a quick look, I opted
-for using AWS Fargate, Cloudformation, CodePipeline and CodeBuild (if you know what they are
+for using AWS Fargate, Cloudformation, CodePipeline (if you know what they are
 skip the next 4 paragraphs).
 
 AWS Fargate is a compute engine for Amazon ECS that allows you to run containers without having to manage servers or clusters. With AWS Fargate, you no longer have to provision, configure, and scale clusters of virtual machines to run containers. This removes the need to choose server types, decide when to scale your clusters, or optimize cluster packing. AWS Fargate removes the need for you to interact with or think about servers or clusters. Fargate lets you focus on designing and building your applications instead of managing the infrastructure that runs them.
@@ -187,11 +187,6 @@ model, visualize, and automate the steps required to release your
 software. You can quickly model and configure the different stages of
 a software release process. AWS CodePipeline automates the steps
 required to release your software changes continuously. 
-
-AWS CodeBuild is a fully managed continuous integration service that
-compiles source code, runs tests, and produces software packages that
-are ready to deploy.
-
 
 The service created will run behind an Application Load Balancer (it will
 autoscale to meet traffic demands), that is
