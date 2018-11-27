@@ -5,7 +5,7 @@ RUN apk add -U git \
     && mkdir /app \
     && chown -R frank /app 
 WORKDIR /app
-#USER frank
+USER frank
 RUN  git clone https://github.com/rea-cruitment/simple-sinatra-app.git \ 
     && cd simple-sinatra-app \
     && bundle install
