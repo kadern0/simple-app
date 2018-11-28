@@ -109,7 +109,7 @@ following values for creating the stack:
 - GITHUB_TOKEN personal token with access to this repo
 - IMAGE_URI is the repositoryUri value from the ECR creation
 
-Now simply run
+Now simply run (in this order and with your own values):
 
 ```
 ./stack_manager.sh create STACK_NAME GITHUB_USER GITHUB_REPO GITHUB_TOKEN IMAGE_URI
