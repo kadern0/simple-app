@@ -8,12 +8,12 @@ if [ $# -ge 1 ];then
             if [ $# -ne 6 ];then
 
                 echo "ERROR: Missing parameters!"
-                echo "Syntax: ${0} create STACK_NAME GITHUB_USER GITHUB_REPO GITHUB_TOKEN IMAGE_URI"
+                echo "Syntax: ${0} create STACK_NAME GITHUB_USER GITHUB_TOKEN GITHUB_REPO IMAGE_URI"
                 exit 1
                 
             fi
             echo "CREATING STACK"
-            $(which aws) aws cloudformation create-stack --stack-name $2 --template-body \
+            $(which aws) cloudformation create-stack --stack-name $2 --template-body \
                          file://cloudformation/main.yaml  --parameters \
                          ParameterKey=GitHubUser,ParameterValue=$3 \
                          ParameterKey=GitHubToken,ParameterValue=$4 \
