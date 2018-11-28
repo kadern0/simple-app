@@ -138,7 +138,7 @@ World!" message.
 
 Now, if you push new code to your repository it will get automatically
 deployed. It usually takes around 4 minutes. I've left some code
-commented inside the run.sh file for an easy and quick test.
+commented inside the "run.sh" file for an easy and quick test.
 
 
 Once you have finished testing, delete the stack by running:
@@ -158,7 +158,7 @@ the application (running as non-root) and use any orchestrator to
 deploy a service so it achieves reliability and scalability at the
 same time. I also wanted to use some technologies that I hadn't used
 before so I could learn during the process. After a quick look, I opted
-for using AWS Fargate, Cloudformation, CodePipeline.
+for using AWS Fargate, Cloudformation and CodePipeline.
 
 The service created will run behind an Application Load Balancer (it will
 autoscale to meet traffic demands), that is
@@ -185,26 +185,23 @@ https://aws.amazon.com/blogs/devops/aws-cloudformation-security-best-practices/
 I have been a bit "relaxed" with the IAM permissions as I didn't want
 to bee dealing with policies as I saw it as an exercise, still I am
 aware that each account and stack should be guaranteed the least
-priviledges to ensure its correct function without being able to
+privileges to ensure its correct function without being able to
 create any side effects (i.e. if you modify the template you could
 delete other stacks).
 
+Testing: there is no testing in place, if the docker container is up
+and returning 2XX values, it will get deployed, still this doesn't
+mean the application is returning what is expected to (Hello world! in
+this case). In a production environment, testing should be in place.
+
 
 Cloudformation templates must be stored on an Amazon S3 bucket,
-therefore I have made them public in one of my buckets.
+therefore I have made them public in one of my buckets. I've included
+them in this repo, yet only the main.yaml file would be neccessary.
 
 
-I was getting this error when starting the container:
-```
-CannotStartContainerError: API error (400): OCI runtime create failed: container_linux.go:348: starting container process caused "exec: \"/run.sh\": permission denied": unknown 
-```
-
-Random stackoverflow guy happened to have the same problem and he
-fixed it by putting this inside the Dockerfile entrypoint:
-```
-ENTRYPOINT ["/bin/ash","-c","chmod a+x /run.sh && /run.sh"]
-```
-
+In order to create a TaskDefinition, you must specify an image,
+that's why it was required manually pushing the initial image.
 
 When you delete a stack, not everything gets deleted. Some resources
 must be empty before they can be deleted. For example, you must delete
