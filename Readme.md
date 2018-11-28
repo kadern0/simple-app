@@ -14,7 +14,7 @@ Prerequisites:
   the Readme)
 
 First step is to fork this repo or clone it to your GitHub
-account. Once you have the code, within the repository directoy, you
+account. Once you have the code, within the repository directory, you
 can perform a quick test of the container by building it and running
 it:
 
@@ -38,7 +38,7 @@ docker stop rea
 
 Quick details about this container:
 
-It runs an ruby:alpine image (, pulls the code from the original
+It runs an ruby:alpine image, pulls the code from the original
 simple-sinatra-app repo and runs the code as user frank in the port
 9292.
 
@@ -186,8 +186,7 @@ I have been a bit "relaxed" with the IAM permissions as I didn't want
 to bee dealing with policies as I saw it as an exercise, still I am
 aware that each account and stack should be guaranteed the least
 privileges to ensure its correct function without being able to
-create any side effects (i.e. if you modify the template you could
-delete other stacks).
+create any side effects.
 
 Testing: as we all know, testing is a fundamental piece of CD
 pipelines. In this case, there is no proper testing in place, if the docker container is up
