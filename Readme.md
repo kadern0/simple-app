@@ -173,7 +173,7 @@ ensures there are at least 2 containers running in every moment.
 
 
 
-CAVEATS:
+__CAVEATS__:
 
 
 IAM permissions setup. According to the documentation:
