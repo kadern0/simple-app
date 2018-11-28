@@ -183,7 +183,8 @@ https://aws.amazon.com/blogs/devops/aws-cloudformation-security-best-practices/
 "By using a combination of IAM policies, users, and roles, CloudFormation-specific IAM conditions, and stack policies, you can ensure that your CloudFormation stacks are used as intended and minimize accidental resource updates or deletions."
 
 I have been a bit "relaxed" with the IAM permissions as I didn't want
-to bee dealing with policies as I saw it as an exercise, still I am
+to be dealing with policies as I saw it as an exercise (and I had to
+get familiar with a lot of new tools), still I am
 aware that each account and stack should be guaranteed the least
 privileges to ensure its correct function without being able to
 create any side effects.
