@@ -91,59 +91,45 @@ docker push aws_account_id.dkr.ecr.REGION.amazonaws.com/hello-world
 ```
 
 Now that we have the image available in our repository we are going to
-deploy the CD stack. For this, we will be using the second repository:
+deploy the CD stack. For this, we will be using the wrapper
+"stack_manager.sh". This is a simple bash script that encapsulates
+some aws cli commands to make it easier to execute, still you can run
+the aws commands directly if you prefer.
 
-https://github.com/kadern0/fargate-stack
-
-In this repository reside all the Cloudformation templates that will
-create the neccessary resources for this project. Clone this
-repository and cd into it. From here you will only have to create the
-stack from the main.yaml file, but for this to work, you have to set
-some variables first. Run the folling by replacing the 'xxx' with your
-own values:
-
-
+You will need to enable execution permissions on the file:
 ```
-# This is the name of your stack, it must be unique
-STACK_NAME=xxx
-# Your GitHub username
-GITHUB_USER=xxx
-# Repository where you cloned the simple-app repo
-GITHUB_REPO=xxx
-# Personal GitHub token
-GITHUB_TOKEN=xxx
-# This is the repositoryUri value from the ECR creation
-IMAGE_URI=xxx
-
+chmod +x stack_manager.sh
 ```
+
+With it you can create, describe and delete the stack. You will need
+following values for creating the stack:
+- STACK_NAME is the name of your stack, it must be unique
+- GITHUB_USER the username of the github repo where you cloned this project
+- GITHUB_REPO url of your clone of this repo
+- GITHUB_TOKEN personal token with access to this repo
+- IMAGE_URI is the repositoryUri value from the ECR creation
 
 Now simply run
 
 ```
-aws cloudformation create-stack --stack-name $STACK_NAME --template-body \
-file://main.yaml  --parameters \
-ParameterKey=GitHubUser,ParameterValue=$GITHUB_USER \
-ParameterKey=GitHubToken,ParameterValue=$GITHUB_TOKEN \
-ParameterKey=GitHubRepo,ParameterValue=$GITHUB_REPO \
-ParameterKey=ImageUrl,ParameterValue=$IMAGE_URI \
---capabilities CAPABILITY_IAM
+./stack_manager.sh create STACK_NAME GITHUB_USER GITHUB_REPO GITHUB_TOKEN IMAGE_URI
 ```
 
 In case you want to use a different branch (by default it's master)
 you have to add a 'GitHubBranch' parameter to the previous command.
 This should create the stack and deploy the application into Fargate
 behind an Elastic Load Balancer. It takes around 7 minutes to
-finish. After this time, you can run:
+finish. To view the state at any time you can run:
 
 ```
-aws cloudformation describe-stacks --stack-name $STACK_NAME 
+./stack_manager.sh describe STACK_NAME
 ```
 
-To view the state. From there you can find the URL of the service with
+Once the stack is created, you can find the URL of the service with
 following command:
 
 ```
-aws cloudformation describe-stacks --stack-name $STACK_NAME | grep -A 2 ServiceUrl
+./stack_manager.sh describe STACK_NAME | grep -A 2 ServiceUrl
 ```
 
 If you open this URL from a browser or curl you should see the "Hello
@@ -157,7 +143,7 @@ commented inside the run.sh file for an easy and quick test.
 
 Once you have finished testing, delete the stack by running:
 ```
-aws cloudformation delete-stack --stack-name $STACK_NAME
+./stack_manager.sh delete STACK_NAME
 ```
 
 Note: there will be some components left in AWS, I'll talk about this
@@ -172,24 +158,7 @@ the application (running as non-root) and use any orchestrator to
 deploy a service so it achieves reliability and scalability at the
 same time. I also wanted to use some technologies that I hadn't used
 before so I could learn during the process. After a quick look, I opted
-for using AWS Fargate, Cloudformation, CodePipeline (if you know what they are
-skip the next 4 paragraphs).
-
-AWS Fargate is a compute engine for Amazon ECS that allows you to run containers without having to manage servers or clusters. With AWS Fargate, you no longer have to provision, configure, and scale clusters of virtual machines to run containers. This removes the need to choose server types, decide when to scale your clusters, or optimize cluster packing. AWS Fargate removes the need for you to interact with or think about servers or clusters. Fargate lets you focus on designing and building your applications instead of managing the infrastructure that runs them.
-
-AWS CloudFormation provides a common language for you to describe and
-provision all the infrastructure resources in your cloud
-environment. CloudFormation allows you to use a simple text file to
-model and provision, in an automated and secure manner, all the
-resources needed for your applications across all regions and
-accounts. This file serves as the single source of truth for your
-cloud environment.
-
-AWS CodePipeline is a continuous delivery service you can use to
-model, visualize, and automate the steps required to release your
-software. You can quickly model and configure the different stages of
-a software release process. AWS CodePipeline automates the steps
-required to release your software changes continuously. 
+for using AWS Fargate, Cloudformation, CodePipeline.
 
 The service created will run behind an Application Load Balancer (it will
 autoscale to meet traffic demands), that is
