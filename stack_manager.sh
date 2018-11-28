@@ -23,7 +23,7 @@ if [ $# -ge 1 ];then
 
             ;;
         "delete")
-            if [ $# -ne 3 ];then
+            if [ $# -ne 2 ];then
 
                 echo "ERROR: Missing parameters!"
                 echo "Syntax: ${0} delete STACK_NAME"
@@ -35,7 +35,7 @@ if [ $# -ge 1 ];then
             $(which aws) cloudformation delete-stack --stack-name $2
             ;;
         "describe")
-            if [ $# -ne 3 ];then
+            if [ $# -ne 2 ];then
 
                 echo "ERROR: Missing parameters!"
                 echo "Syntax: ${0} describe STACK_NAME "
