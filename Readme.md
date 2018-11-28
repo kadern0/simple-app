@@ -105,14 +105,14 @@ With it you can create, describe and delete the stack. You will need
 following values for creating the stack:
 - STACK_NAME is the name of your stack, it must be unique
 - GITHUB_USER the username of the github repo where you cloned this project
-- GITHUB_REPO url of your clone of this repo
+- GITHUB_PROJECT name of your clone of this repo (mine is "simple-app")
 - GITHUB_TOKEN personal token with access to this repo
 - IMAGE_URI is the repositoryUri value from the ECR creation
 
 Now simply run (in this order and with your own values):
 
 ```
-./stack_manager.sh create STACK_NAME GITHUB_USER GITHUB_REPO GITHUB_TOKEN IMAGE_URI
+./stack_manager.sh create STACK_NAME GITHUB_USER GITHUB_PROJECT GITHUB_TOKEN IMAGE_URI
 ```
 
 In case you want to use a different branch (by default it's master)

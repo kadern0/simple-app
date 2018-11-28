@@ -8,7 +8,7 @@ if [ $# -ge 1 ];then
             if [ $# -ne 6 ];then
 
                 echo "ERROR: Missing parameters!"
-                echo "Syntax: ${0} create STACK_NAME GITHUB_USER GITHUB_TOKEN GITHUB_REPO IMAGE_URI"
+                echo "Syntax: ${0} create STACK_NAME GITHUB_USER GITHUB_PROJECT GITHUB_REPO IMAGE_URI"
                 exit 1
                 
             fi
