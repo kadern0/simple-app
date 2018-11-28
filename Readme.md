@@ -1,4 +1,4 @@
-This is the project (1 out of 2) to deploy the simple-sinatra-app.
+This is the project to deploy the simple-sinatra-app on AWS.
 
 The proposed solution will build a docker container with the
 application and then use Cloudformation to create a Continuous
@@ -10,7 +10,8 @@ Prerequisites:
 - Local Docker installation and an user with permissions to run containers
 - AWS CLI
 - GitHub account and a personal token (https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)
-- IAM User with permissions to: push and pull images from ECR
+- IAM User with "Enough" permissions (more about this in the end of
+  the Readme)
 
 First step is to fork this repo or clone it to your GitHub
 account. Once you have the code, within the repository directoy, you
@@ -205,9 +206,20 @@ ensures there are at least 2 containers running in every moment.
 
 CAVEATS:
 
+
+IAM permissions setup. According to the documentation:
+
+https://aws.amazon.com/blogs/devops/aws-cloudformation-security-best-practices/
+
+"By using a combination of IAM policies, users, and roles, CloudFormation-specific IAM conditions, and stack policies, you can ensure that your CloudFormation stacks are used as intended and minimize accidental resource updates or deletions."
+
 I have been a bit "relaxed" with the IAM permissions as I didn't want
-to bee dealing with policies as I saw it as an exercise. In addition to AWS CloudFormation permissions, you must be
-allowed to use the underlying services, such as Amazon S3 and others. 
+to bee dealing with policies as I saw it as an exercise, still I am
+aware that each account and stack should be guaranteed the least
+priviledges to ensure its correct function without being able to
+create any side effects (i.e. if you modify the template you could
+delete other stacks).
+
 
 Cloudformation templates must be stored on an Amazon S3 bucket,
 therefore I have made them public in one of my buckets.
