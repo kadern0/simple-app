@@ -189,10 +189,11 @@ privileges to ensure its correct function without being able to
 create any side effects (i.e. if you modify the template you could
 delete other stacks).
 
-Testing: there is no testing in place, if the docker container is up
+Testing: as we all know, testing is a fundamental piece of CD
+pipelines. In this case, there is no proper testing in place, if the docker container is up
 and returning 2XX values, it will get deployed, still this doesn't
 mean the application is returning what is expected to (Hello world! in
-this case). In a production environment, testing should be in place.
+this case).
 
 
 Cloudformation templates must be stored on an Amazon S3 bucket,
